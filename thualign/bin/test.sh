@@ -5,6 +5,7 @@ CLI_DIR=$(cd "$(dirname "$0")"; pwd)
 
 code_dir="$CLI_DIR/.."
 export PYTHONPATH="$PYTHON:$code_dir"
+export TF_ENABLE_ONEDNN_OPTS=0
 
 EXP="DEFAULT"
 suffix=""
@@ -57,4 +58,6 @@ if [ "x" = "x$CONFIG" ]; then
 fi
 
 echo "running $CONFIG"
-python $CLI_DIR/inferrer.py --config $CONFIG --exp $EXP $suffix
+
+# /apdcephfs/share_916081/visionshao/DevTools/anaconda3/envs/mask-align/bin/python3 $CLI_DIR/inferrer.py --config $CONFIG --exp $EXP $suffix
+/apdcephfs/share_916081/visionshao/DevTools/anaconda3/envs/mask-align/bin/python3 $CLI_DIR/large_scale_inferrer.py --config $CONFIG --exp $EXP $suffix

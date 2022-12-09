@@ -133,7 +133,6 @@ def gen_weights(params):
             try:
                 features = next(iterator)
                 features = to_cuda(features)
-                batch_size = features["source"].shape[0]
             except:
                 break
 
@@ -152,8 +151,6 @@ def gen_weights(params):
             results[1] += all_cnt
             
             source_lengths, target_lengths = features["source_mask"].sum(-1).long().tolist(), features["target_mask"].sum(-1).long().tolist()
-            for weight, src_len, tgt_len in zip(state['decoder_attn'], source_lengths, target_lengths):
-                decoder_cross_attn.append(weight[:, :, :tgt_len, :src_len])
 
             if 'encoder_self_attn' in state:
                 for weight, src_len in zip(state['encoder_self_attn'], source_lengths):
@@ -457,6 +454,7 @@ def main(args):
         base_dir = params.output
         test_path = os.path.join(base_dir, "test")
         params.test_path = test_path
+        params.test_path = os.path.join(params.align_output, "align_out")
         
         params.gen_weights = args.gen_weights
         params.gen_vizdata = args.gen_vizdata

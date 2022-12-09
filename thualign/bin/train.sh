@@ -42,4 +42,5 @@ do
 done
 
 echo "running $CONFIG"
-python $CLI_DIR/trainer.py --config $CONFIG --exp $EXP
+# /apdcephfs/share_916081/visionshao/DevTools/anaconda3/envs/mask-align/bin/python3 $CLI_DIR/trainer.py --config $CONFIG --exp $EXP
+/apdcephfs/share_916081/visionshao/DevTools/anaconda3/envs/mask-align/bin/python3 -m torch.distributed.launch --nproc_per_node=4 $CLI_DIR/trainer.py --config $CONFIG --exp $EXP --distributed
